@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "376736149193",
+    "project_id": "leurope-7e323",
+    "storage_bucket": "leurope-7e323.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376736149193:android:1baf5b397f0e42ea332718",
+        "android_client_info": {
+          "package_name": "com.example.leurope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376736149193-843jsc7cus3np2a55meuiisc2r36eevf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.leurope",
+            "certificate_hash": "f09c02aec0814038c530300496481bcd3482e205"
+          }
+        },
+        {
+          "client_id": "376736149193-hls70hlchoounp9fc8s2n58bc9dffkba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC848XVfgOn0pwzb8v65qChp2UCavb7Ji0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376736149193-hls70hlchoounp9fc8s2n58bc9dffkba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
