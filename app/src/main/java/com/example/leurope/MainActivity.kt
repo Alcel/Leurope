@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
 import com.example.leurope.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import www.iesmurgi.u9_proyprofesoressqlite.Usuarios
 import www.iesmurgi.u9_proyprofesoressqlite.UsuariosAdapter
 
@@ -20,6 +22,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
       //  setRecycler()
         setListeners() //Cdo pulsemos el boton flotante
+        logIn()
+    }
+    private fun logIn(){
+        val usuario = "ngarman1612@g.educaand.es"
+        val contra ="iesmurgi"
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
+            if (it.isSuccessful){
+                loadData()
+            }
+            else{
+                Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT)
+            }
+        }
+
+    }
+    private fun loadData(){
+
     }
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
