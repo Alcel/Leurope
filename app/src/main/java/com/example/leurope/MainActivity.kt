@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         //crearNuevoUsuario("elfliper2@gmail.com","123456")
         logIn()
-        setRecycler()
+
         setListeners() //Cdo pulsemos el boton flotante
     }
     fun crearNuevoUsuario(email:String, clave: String) {
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             if (usuario != null) {
                 println("Aqui"+nombre)
                 lista.add(usuario)
+                setRecycler()
             }
             else{
                 println("???????????????????????????????????????NULO")
