@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     var lista = mutableListOf<Usuarios>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Hola soy Sergio
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
