@@ -70,10 +70,10 @@ class MainActivity : AppCompatActivity() {
     }
     fun setup(){
         val db = Firebase.firestore
-        db.collection("location").document(user?.email.toString()).get().addOnSuccessListener {
+        db.collection("location").document("lugar").get().addOnSuccessListener {
                 documento ->
             val nombre = documento.getString("nombre")
-            var usuario: Usuarios? = nombre?.let { Usuarios(1, it) }
+            var usuario: Usuarios? = nombre?.let { Usuarios(0, it) }
             if (usuario != null) {
                 println("Aqui"+nombre)
                 lista.add(usuario)
