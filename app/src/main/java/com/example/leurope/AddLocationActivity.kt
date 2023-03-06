@@ -8,10 +8,19 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.leurope.databinding.ActivityAddLocationBinding
+import com.example.leurope.fragments.*
+import com.google.android.material.tabs.TabItem
+import com.google.android.material.tabs.TabLayout
 import www.iesmurgi.u9_proyprofesoressqlite.Usuarios
 
 class AddLocationActivity : AppCompatActivity() {
+    lateinit var tabLayout: TabLayout
+    lateinit var viewPager: ViewPager
+
+
     lateinit var binding: ActivityAddLocationBinding
     var nombre=""
     var asignatura=""
@@ -25,20 +34,37 @@ class AddLocationActivity : AppCompatActivity() {
         binding=ActivityAddLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         cogerDatos()
-        setListeners()
+        tabLayout=binding.layoutTab
+        viewPager=binding.viewPager
+
+        inicializar()
+     /*   setListeners()
 
         binding.imagen.setOnClickListener {
             alerta()
-        }
+        }*/
+    }
+    fun inicializar(){
+        val adapter = TabsFragmentAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+        adapter.addItem(FirstFragment(),resources.getString(R.string.intro))
+        adapter.addItem(SecondFragment(),resources.getString(R.string.desc))
+        adapter.addItem(ThirdFragment(),resources.getString(R.string.transport))
+        adapter.addItem(FourthFragment(),resources.getString(R.string.ocio))
+        adapter.addItem(FiveFragment(),resources.getString(R.string.cultur))
+
+        val viewPager= binding.viewPager
+        viewPager.adapter=adapter
+        val tabLayout:TabLayout = binding.layoutTab
+        tabLayout.setupWithViewPager(viewPager)
     }
     private fun cogerDatos() {
         val datos = intent.extras
         if(datos!=null){
             editar= true
-            binding.btnCrear.text="EDITAR"
+          //  binding.btnCrear.text="EDITAR"
             val usuario = datos.getSerializable("USUARIO") as Usuarios
             id=usuario.id
-            binding.etNombre.setText(usuario.nombre)
+         //   binding.etNombre.setText(usuario.nombre)
 
         }
     }
@@ -60,11 +86,11 @@ class AddLocationActivity : AppCompatActivity() {
         if (requestCode==1 && resultCode== RESULT_OK){
             var extras= data?.extras
             val img= extras?.get("data") as Bitmap
-            binding.imagen.setImageBitmap(img)
+           // binding.imagen.setImageBitmap(img)
         }else{
             val imgGallery=data?.data
             val img=MediaStore.Images.Media.getBitmap(this.contentResolver, imgGallery)
-            binding.imagen.setImageBitmap(img)
+          //  binding.imagen.setImageBitmap(img)
         }
     }
 
@@ -85,7 +111,7 @@ class AddLocationActivity : AppCompatActivity() {
         val dialog=builder.create()
         dialog.show()
     }
-
+/*
     private fun setListeners() {
         binding.btnVolver.setOnClickListener {
             finish()
@@ -93,7 +119,8 @@ class AddLocationActivity : AppCompatActivity() {
         binding.btnCrear.setOnClickListener {
             crearRegistro()
         }
-    }
+    }*/
+    /*
     private fun crearRegistro() {
         nombre=binding.etNombre.text.toString().trim()
         email=binding.etEmail.text.toString().trim()
@@ -106,7 +133,7 @@ class AddLocationActivity : AppCompatActivity() {
             binding.etEmail.setError("El campo email debe tener al menos 6 caracteres")
             binding.etEmail.requestFocus()
             return
-        }
+        }*/
         //el email no esta duplicado
 
   /*      if(conexion.existeEmail(email, id)){
@@ -130,6 +157,6 @@ class AddLocationActivity : AppCompatActivity() {
             else{
                 Toast.makeText(this, "NO se pudo editar el registro!!!", Toast.LENGTH_SHORT).show()
             }
-        }*/
-    }
+        }
+    }*/
 }

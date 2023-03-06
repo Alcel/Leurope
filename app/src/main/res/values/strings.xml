@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Leurope</string>
+    <string name="intro">Presentación</string>
+    <string name="desc">Descripción</string>
+    <string name="transport">Transporte</string>
+    <string name="ocio">Ocio</string>
+    <string name="cultur">Cultura</string>
 
     <array name="opciones">
         <item>Galeria</item>

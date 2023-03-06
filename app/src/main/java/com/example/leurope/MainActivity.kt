@@ -7,8 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.example.leurope.databinding.ActivityMainBinding
+import com.example.leurope.fragments.*
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -18,11 +22,12 @@ import www.iesmurgi.u9_proyprofesoressqlite.UsuariosAdapter
 
 class MainActivity : AppCompatActivity() {
     lateinit var user: FirebaseUser
-
     lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     lateinit var miAdapter: UsuariosAdapter
     var lista = mutableListOf<Usuarios>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Hola soy Sergio
@@ -30,27 +35,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         logIn()
-
         setListeners() //Cdo pulsemos el boton flotante
     }
 
-    private fun logIn(){
-        val usuario = "ngarman1612@g.educaand.es"
-        val contra ="iesmurgi"
 
+
+    private fun logIn(){ val usuario = "elfliper2@gmail.com"
+        val contra ="123456"
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
             if (it.isSuccessful){
                 println(contra)
-                user= auth.currentUser!!
+                user = FirebaseAuth.getInstance().currentUser!!
                 setup()
-
-              //writeNewLocation()
+                println("SIIIIIIIIIIIIIIIIII")
+                //writeNewLocation()
             }
             else{
-                Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT)
+                val exception = it.exception
+                Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+
+                println("NOOOOOOOOOOOOOOOOOOOO "+{exception?.message})
             }
         }
-
     }
     fun setup(){
         val db = Firebase.firestore
@@ -63,7 +69,6 @@ class MainActivity : AppCompatActivity() {
                 lista.add(usuario)
                 setRecycler()
             }
-
             else{
                 println("???????????????????????????????????????NULO")
             }
