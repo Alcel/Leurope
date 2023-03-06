@@ -29,25 +29,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
+        //crearNuevoUsuario("elfliper2@gmail.com","123456")
         logIn()
         setRecycler()
         setListeners() //Cdo pulsemos el boton flotante
     }
+    fun crearNuevoUsuario(email:String, clave: String) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, clave)
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                   logIn()
+                }
+                else{
+                    Toast.makeText(this,"Error al crear un nuevo usuario", Toast.LENGTH_SHORT)
+
+                }
+            }
+    }
 
     private fun logIn(){
-        val usuario = "ngarman1612@g.educaand.es"
-        val contra ="iesmurgi"
-
+        val usuario = "elfliper2@gmail.com"
+        val contra ="123456"
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
             if (it.isSuccessful){
                 println(contra)
-                user= auth.currentUser!!
+                user = FirebaseAuth.getInstance().currentUser!!
                 setup()
-
+                println("SIIIIIIIIIIIIIIIIII")
               //writeNewLocation()
             }
             else{
-                Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT)
+                val exception = it.exception
+                Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+
+                println("NOOOOOOOOOOOOOOOOOOOO "+{exception?.message})
             }
         }
 
@@ -80,9 +96,6 @@ class MainActivity : AppCompatActivity() {
             Log.d(ContentValues.TAG, "DocumentSnapshot succesfully written!")
         }.addOnFailureListener { e-> Log.w(ContentValues.TAG,"Error writing document",e) }
     }*/
-    private fun loadData(){
-
-    }
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
             startActivity(Intent(this, AddLocationActivity::class.java))
@@ -122,10 +135,5 @@ class MainActivity : AppCompatActivity() {
             binding.tvNo.visibility = View.VISIBLE
         }
         miAdapter.notifyItemRemoved(position)
-    }
-
-    override fun onResume() {
-        super.onResume()
-       // setRecycler()
     }
 }
