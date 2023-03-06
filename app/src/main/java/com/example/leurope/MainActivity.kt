@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-
+////////////////
     private fun logIn(){
         val usuario = "elfliper2@gmail.com"
         val contra ="123456"
