@@ -13,8 +13,6 @@ class UsuariosViewHolder (vista: View):RecyclerView.ViewHolder(vista){
     {
         miBinding.tvId.text=profesor.id.toString()
         miBinding.tvNombre.text=profesor.nombre
-        miBinding.tvAsignatura.text=profesor.asig
-        miBinding.tvEmail.text=profesor.email
         miBinding.btnBorrar.setOnClickListener{
         onItemDelete(adapterPosition)
         }

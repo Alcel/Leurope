@@ -30,8 +30,7 @@ class AddLocationActivity : AppCompatActivity() {
             val usuario = datos.getSerializable("USUARIO") as Usuarios
             id=usuario.id
             binding.etNombre.setText(usuario.nombre)
-            binding.etAsignatura.setText(usuario.asig)//No esta en el esqueleto
-            binding.etEmail.setText(usuario.email)
+
         }
     }
     private fun setListeners() {
