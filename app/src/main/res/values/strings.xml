@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Leurope</string>
+
+    <array name="opciones">
+        <item>Galeria</item>
+        <item>Camara</item>
+    </array>
 </resources>
