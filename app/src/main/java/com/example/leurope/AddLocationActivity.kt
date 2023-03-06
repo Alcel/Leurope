@@ -1,8 +1,13 @@
 package com.example.leurope
 
+import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.leurope.databinding.ActivityAddLocationBinding
 import www.iesmurgi.u9_proyprofesoressqlite.Usuarios
 
@@ -21,6 +26,10 @@ class AddLocationActivity : AppCompatActivity() {
         setContentView(binding.root)
         cogerDatos()
         setListeners()
+
+        binding.imagen.setOnClickListener {
+            alerta()
+        }
     }
     private fun cogerDatos() {
         val datos = intent.extras
@@ -33,6 +42,50 @@ class AddLocationActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun camara() {
+        val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(packageManager)!=null){
+            startActivityForResult(intent, 1)
+        }
+    }
+
+    private fun cargarImagen(){
+        val intent= Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, 2)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==1 && resultCode== RESULT_OK){
+            var extras= data?.extras
+            val img= extras?.get("data") as Bitmap
+            binding.imagen.setImageBitmap(img)
+        }else{
+            val imgGallery=data?.data
+            val img=MediaStore.Images.Media.getBitmap(this.contentResolver, imgGallery)
+            binding.imagen.setImageBitmap(img)
+        }
+    }
+
+    private fun alerta(){
+        val builder= AlertDialog.Builder(this)
+        builder.setTitle("Elige una opción")
+            .setItems(R.array.opciones, DialogInterface.OnClickListener{ dialog, which->
+                when(which){
+                    0->{
+                        cargarImagen()
+                    }
+
+                    1->{
+                        camara()
+                    }
+                }
+            })
+        val dialog=builder.create()
+        dialog.show()
+    }
+
     private fun setListeners() {
         binding.btnVolver.setOnClickListener {
             finish()
