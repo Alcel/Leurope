@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseUser
-import www.iesmurgi.u9_proyprofesoressqlite.Usuarios
-import www.iesmurgi.u9_proyprofesoressqlite.UsuariosAdapter
 
 class MainActivity : AppCompatActivity() {
     lateinit var user: FirebaseUser
@@ -61,8 +59,6 @@ class MainActivity : AppCompatActivity() {
                 buttonCancel.setOnClickListener {
                     println("DDDDDDDDDDDDD")
                     dialogViewAlert.dismiss() }
-
-
 
                 binding.tvNo.visibility = View.VISIBLE
 

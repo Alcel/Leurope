@@ -1,4 +1,4 @@
-package www.iesmurgi.u9_proyprofesoressqlite
+package com.example.leurope
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +21,6 @@ class UsuariosViewHolder (vista: View):RecyclerView.ViewHolder(vista){
         Glide.with(miBinding.root)
             .load(profesor.Imagen)
             .into(miBinding.imageView)
-
-
 
         miBinding.btnBorrar.setOnClickListener{
             onItemDelete(adapterPosition)

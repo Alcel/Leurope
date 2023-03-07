@@ -6,15 +6,12 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.leurope.databinding.ActivityAddLocationBinding
 import com.example.leurope.fragments.*
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
-import www.iesmurgi.u9_proyprofesoressqlite.Usuarios
 
 class AddLocationActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
