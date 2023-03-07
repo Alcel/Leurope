@@ -45,7 +45,7 @@ class AddLocationActivity : AppCompatActivity() {
         val adapter = TabsFragmentAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         adapter.addItem(FirstFragment(),resources.getString(R.string.intro))
         adapter.addItem(SecondFragment(),resources.getString(R.string.desc))
-        adapter.addItem(ThirdFragment(),resources.getString(R.string.transport))
+        adapter.addItem(MainMapa(),resources.getString(R.string.transport))
         adapter.addItem(FourthFragment(),resources.getString(R.string.ocio))
         adapter.addItem(FiveFragment(),resources.getString(R.string.cultur))
 
