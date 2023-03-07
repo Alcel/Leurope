@@ -18,6 +18,11 @@
     <string name="tvdescripcion">Ponga una descripcion del lugar</string>
     <string name="tvimprescindibles">Ponga los lugares imprescindibles del area</string>
     <string name="imprescindibles">Imprescindibles</string>
+    <string name="Comer">Que comer?</string>
+    <string name="lugarComida">Ponga algun lugar donde comer</string>
+    <string name="actividades">Actividades de la zona</string>
+    <string name="tvactividades">Ponga las actividades que le haya gustado hacer</string>
+    <string name="lugarcomer">Lugar donde comer</string>
 
     <array name="opciones">
         <item>Galeria</item>

@@ -24,4 +24,9 @@
     <string name="tvdescripcion">Write a description of the place</string>
     <string name="tvimprescindibles">Write the essentials places of the area</string>
     <string name="imprescindibles">Essentials</string>
+    <string name="Comer">What to eat?</string>
+    <string name="lugarComida">Write a place where to eat</string>
+    <string name="actividades">Area activities</string>
+    <string name="tvactividades">Write the activities that you liked to do</string>
+    <string name="lugarcomer">Place to eat</string>
 </resources>
