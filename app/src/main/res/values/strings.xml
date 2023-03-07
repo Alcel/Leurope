@@ -14,6 +14,10 @@
     <string name="nombre">Nombre</string>
     <string name="lugar">Lugar de la visita</string>
     <string name="conclusion">Ponga su conclusion del sitio</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="tvdescripcion">Ponga una descripcion del lugar</string>
+    <string name="tvimprescindibles">Ponga los lugares imprescindibles del area</string>
+    <string name="imprescindibles">Imprescindibles</string>
 
     <array name="opciones">
         <item>Galeria</item>

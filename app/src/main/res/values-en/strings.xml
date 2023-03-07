@@ -20,4 +20,8 @@
         <item>Galery</item>
         <item>Camera</item>
     </array>
+    <string name="descripcion">Description</string>
+    <string name="tvdescripcion">Write a description of the place</string>
+    <string name="tvimprescindibles">Write the essentials places of the area</string>
+    <string name="imprescindibles">Essentials</string>
 </resources>

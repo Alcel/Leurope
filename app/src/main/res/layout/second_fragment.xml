@@ -5,13 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="wrap_content"
+        android:layout_height="150dip"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185">
+
+        <EditText
+            android:id="@+id/descripcion"
+            android:layout_width="280dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="@string/descripcion"
+            android:inputType="text|textMultiLine" />
+
+    </ScrollView>
+
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="424dp"
-        android:text="TextView"
+        android:text="@string/tvdescripcion"
+        android:layout_marginBottom="30dp"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/ScrollView01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="wrap_content"
+        android:layout_height="150dip"
+        android:layout_marginBottom="184dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/imprescindibles"
+            android:layout_width="280dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="@string/imprescindibles"
+            android:inputType="text|textMultiLine" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/tvimprescindibles"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
