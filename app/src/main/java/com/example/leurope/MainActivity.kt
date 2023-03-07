@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 val dialogViewBuilder = AlertDialog.Builder(this)
                     .setView(dialogView).setTitle("Login")
                 val dialogViewAlert =dialogViewBuilder.show()
-                var bindDialog=DialogWindowBinding.bind(dialogView)
+                var bindDialog= DialogWindowBinding.bind(dialogView)
 
                 val buttonCancel = bindDialog.cancel
 
