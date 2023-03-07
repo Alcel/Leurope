@@ -59,8 +59,8 @@ class AddLocationActivity : AppCompatActivity() {
         if(datos!=null){
             editar= true
           //  binding.btnCrear.text="EDITAR"
-            val usuario = datos.getSerializable("USUARIO") as Usuarios
-            id=usuario.id
+            val lugar = datos.getSerializable("USUARIO") as Location
+
          //   binding.etNombre.setText(usuario.nombre)
 
         }

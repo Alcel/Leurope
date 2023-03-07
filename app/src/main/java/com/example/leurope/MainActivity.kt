@@ -1,5 +1,6 @@
 package com.example.leurope
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         logIn()
+      //  crearNuevoUsuario("pepeeldelaspapas@gmail.com","123456")
+
         setListeners() //Cdo pulsemos el boton flotante
     }
 
@@ -87,8 +90,8 @@ class MainActivity : AppCompatActivity() {
 
         val mapa= hashMapOf(
             "email" to email,
-            "nombre" to "usuario",
-            "edad" to "10"
+            "nombre" to "Juan Jose",
+            "rol" to "Admin"
         )
 
         db.collection("user").document(email)
@@ -146,9 +149,6 @@ class MainActivity : AppCompatActivity() {
         }.addOnFailureListener { e-> Log.w(ContentValues.TAG,"Error writing document",e) }
     }
 
-    private fun loadData(){
-
-    }
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
             startActivity(Intent(this, AddLocationActivity::class.java))
@@ -168,7 +168,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recUsuarios.adapter = miAdapter
     }
-
+    //Jesucristo estuvo aqui
+    @SuppressLint("SuspiciousIndentation")
     private fun onItemUpdate(location: Location) {
         //pasamos el usuario al activity updatecreate
         val i = Intent(this, AddLocationActivity::class.java)
