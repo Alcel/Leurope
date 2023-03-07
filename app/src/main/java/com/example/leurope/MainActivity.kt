@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     lateinit var miAdapter: UsuariosAdapter
-    var lista = mutableListOf<Usuarios>()
+    var lista = mutableListOf<Location>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +125,8 @@ class MainActivity : AppCompatActivity() {
         db.collection("location").document("lugar").get().addOnSuccessListener {
                 documento ->
             val nombre = documento.getString("nombre")
-            var usuario: Usuarios? = nombre?.let { Usuarios(0, it) }
+            val imagen=documento.getString("image")
+            var usuario: Location? = Location(nombre!!, "Ciudad de irlanda", "Ocio", "Cultura", "Imprescindibles", imagen!!)
             if (usuario != null) {
                 println("Aqui"+nombre)
                 lista.add(usuario)
@@ -172,11 +173,11 @@ class MainActivity : AppCompatActivity() {
         binding.recUsuarios.adapter = miAdapter
     }
 
-    private fun onItemUpdate(usuario: Usuarios) {
+    private fun onItemUpdate(location: Location) {
         //pasamos el usuario al activity updatecreate
-        val i = Intent(this, AddLocationActivity::class.java).apply {
-            putExtra("USUARIO", usuario)
-        }
+        val i = Intent(this, AddLocationActivity::class.java)
+            i.putExtra("USUARIO", location)
+
         startActivity(i)
     }
 
