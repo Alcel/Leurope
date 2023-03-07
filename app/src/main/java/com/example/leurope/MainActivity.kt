@@ -5,10 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -47,7 +50,19 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId){
             R.id.item_crear->{
                 Toast.makeText(this,"Exito",Toast.LENGTH_SHORT)
+                val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_window,null)
+                val dialogViewBuilder = AlertDialog.Builder(this)
+                    .setView(dialogView).setTitle("Login")
+                val dialogViewAlert =dialogViewBuilder.show()
+
+               // val buttonCancel:Button = findViewById(R.id.login)
+
+              //  buttonCancel.setOnClickListener { dialogViewAlert.dismiss() }
+
+
+
                 binding.tvNo.visibility = View.VISIBLE
+
                 true
             }
             R.id.item_borrar_todo->{ //Si tenemos implementado el adapter y la BD lo codificamos

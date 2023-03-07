@@ -8,6 +8,9 @@
     <string name="logIn">Permisos Especiales</string>
     <string name="closeLogin">Cancelar permisos</string>
     <string name="introduceEmail">Introduzca su Email</string>
+    <string name="cancel">Cancelar</string>
+    <string name="enter">Acceder</string>
+    <string name="introduceContra">Introduzca su contraseña</string>
 
     <array name="opciones">
         <item>Galeria</item>
