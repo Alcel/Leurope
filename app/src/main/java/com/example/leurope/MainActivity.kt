@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.example.leurope.databinding.ActivityMainBinding
+import com.example.leurope.databinding.DialogWindowBinding
 import com.example.leurope.fragments.*
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     var lista = mutableListOf<Usuarios>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //Hola soy Sergio
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,10 +54,13 @@ class MainActivity : AppCompatActivity() {
                 val dialogViewBuilder = AlertDialog.Builder(this)
                     .setView(dialogView).setTitle("Login")
                 val dialogViewAlert =dialogViewBuilder.show()
+                var bindDialog=DialogWindowBinding.bind(dialogView)
 
-               // val buttonCancel:Button = findViewById(R.id.login)
+                val buttonCancel = bindDialog.cancel
 
-              //  buttonCancel.setOnClickListener { dialogViewAlert.dismiss() }
+                buttonCancel.setOnClickListener {
+                    println("DDDDDDDDDDDDD")
+                    dialogViewAlert.dismiss() }
 
 
 
