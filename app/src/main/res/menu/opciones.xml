@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/crear_Ruta"
+        android:title="Crear Ruta con dos partes"/>
+    <item
+        android:id="@+id/Vichi"
+        android:title="Ruta desde Ies Murgi a Vichi"/>
+    <item
+        android:id="@+id/Dublin"
+        android:title="Ruta desde Ies Murgi a Dublin"/>
+    <item
+        android:id="@+id/Ies"
+        android:title="Ruta desde Ies Murgi hasta donde decidas"/>
+
+</menu>
