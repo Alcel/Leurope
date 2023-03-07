@@ -55,7 +55,7 @@
         <EditText
             android:id="@+id/conclusion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dip"
             android:ems="10"
             android:hint="@string/conclusion"
             android:inputType="text|textMultiLine"

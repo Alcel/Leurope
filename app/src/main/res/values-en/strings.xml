@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Leurope</string>
+    <string name="intro">Presentation</string>
+    <string name="desc">Description</string>
+    <string name="transport">Transport</string>
+    <string name="ocio">Leisure</string>
+    <string name="cultur">Culture</string>
+    <string name="logIn">Special permissions</string>
+    <string name="closeLogin">Cancel permissions</string>
+    <string name="introduceEmail">Introduce your email</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter">Access</string>
+    <string name="introduceContra">Introduce your password</string>
+    <string name="nombre">Name</string>
+    <string name="lugar">place of visit</string>
+    <string name="conclusion">Write the conclusion of the place</string>
+
+    <array name="opciones">
+        <item>Galery</item>
+        <item>Camera</item>
+    </array>
+</resources>
