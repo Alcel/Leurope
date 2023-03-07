@@ -11,7 +11,7 @@ class UsuariosViewHolder (vista: View):RecyclerView.ViewHolder(vista){
         onItemDelete:(Int)->Unit,
         onItemUpdate:(Usuarios)->Unit)
     {
-        miBinding.tvId.text=profesor.id.toString()
+
         miBinding.tvNombre.text=profesor.nombre
         miBinding.btnBorrar.setOnClickListener{
         onItemDelete(adapterPosition)

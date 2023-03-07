@@ -5,6 +5,9 @@
     <string name="transport">Transporte</string>
     <string name="ocio">Ocio</string>
     <string name="cultur">Cultura</string>
+    <string name="logIn">Permisos Especiales</string>
+    <string name="closeLogin">Cancelar permisos</string>
+    <string name="introduceEmail">Introduzca su Email</string>
 
     <array name="opciones">
         <item>Galeria</item>

@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentPagerAdapter
@@ -27,8 +29,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var miAdapter: UsuariosAdapter
     var lista = mutableListOf<Usuarios>()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         //Hola soy Sergio
         super.onCreate(savedInstanceState)
@@ -38,9 +38,53 @@ class MainActivity : AppCompatActivity() {
         setListeners() //Cdo pulsemos el boton flotante
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_opciones, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.item_crear->{
+                Toast.makeText(this,"Exito",Toast.LENGTH_SHORT)
+                binding.tvNo.visibility = View.VISIBLE
+                true
+            }
+            R.id.item_borrar_todo->{ //Si tenemos implementado el adapter y la BD lo codificamos
+                lista.clear()
+                binding.tvNo.visibility = View.INVISIBLE
+                true
+            }
+            else->true
+        }
+    }
 
-    private fun logIn(){ val usuario = "elfliper2@gmail.com"
+    fun crearNuevoUsuario(email:String, clave:String){
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, clave).addOnCompleteListener{
+            if(it.isSuccessful){
+                nuevoUsuario(email)
+            }else{
+                Toast.makeText(this, "Error al introducir", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    fun nuevoUsuario(email: String){
+        val db=Firebase.firestore
+
+        val mapa= hashMapOf(
+            "email" to email,
+            "nombre" to "usuario",
+            "edad" to "10"
+        )
+
+        db.collection("user").document(email)
+            .set(mapa)
+            .addOnSuccessListener { Log.d(ContentValues.TAG, "usuario introducido") }
+            .addOnFailureListener{ e-> Log.w(ContentValues.TAG, "Error writing document", e)}
+    }
+
+    private fun logIn(){
+        val usuario = "elfliper2@gmail.com"
         val contra ="123456"
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
             if (it.isSuccessful){
@@ -70,11 +114,10 @@ class MainActivity : AppCompatActivity() {
                 setRecycler()
             }
             else{
-                println("???????????????????????????????????????NULO")
             }
         }
     }
-    /*
+
     fun writeNewLocation(email:String){
         val db = Firebase.firestore
         val data = hashMapOf(
@@ -86,7 +129,8 @@ class MainActivity : AppCompatActivity() {
         db.collection("user").document(email).set(data).addOnSuccessListener {
             Log.d(ContentValues.TAG, "DocumentSnapshot succesfully written!")
         }.addOnFailureListener { e-> Log.w(ContentValues.TAG,"Error writing document",e) }
-    }*/
+    }
+
     private fun loadData(){
 
     }
@@ -96,8 +140,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-        private fun setRecycler() {
-
+    private fun setRecycler() {
         binding.tvNo.visibility = View.INVISIBLE
         if (lista.size == 0) {
             binding.tvNo.visibility = View.VISIBLE
