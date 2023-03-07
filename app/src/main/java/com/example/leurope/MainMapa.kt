@@ -147,6 +147,8 @@ class MainMapa : Fragment(), OnMapReadyCallback {
 
     fun createRoute(){
         poly?.remove()
+        binding.fabInicio.visibility=View.VISIBLE
+        binding.fab.visibility=View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch{
             val call=getRetrofit().create(ApiService::class.java)
                 .getRoute("5b3ce3597851110001cf62483c7f7f8f9583472fbe06640e3b774097", start, end)
