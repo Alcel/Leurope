@@ -7,8 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.example.leurope.databinding.ActivityMainBinding
+import com.example.leurope.fragments.*
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -18,38 +22,25 @@ import www.iesmurgi.u9_proyprofesoressqlite.UsuariosAdapter
 
 class MainActivity : AppCompatActivity() {
     lateinit var user: FirebaseUser
-
     lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     lateinit var miAdapter: UsuariosAdapter
     var lista = mutableListOf<Usuarios>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Hola soy Sergio
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
-        //crearNuevoUsuario("elfliper2@gmail.com","123456")
         logIn()
-
         setListeners() //Cdo pulsemos el boton flotante
     }
-    fun crearNuevoUsuario(email:String, clave: String) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, clave)
-            .addOnCompleteListener {
-                if(it.isSuccessful){
-                   logIn()
-                }
-                else{
-                    Toast.makeText(this,"Error al crear un nuevo usuario", Toast.LENGTH_SHORT)
 
-                }
-            }
-    }
-////////////////
-    private fun logIn(){
-        val usuario = "elfliper2@gmail.com"
+
+
+    private fun logIn(){ val usuario = "elfliper2@gmail.com"
         val contra ="123456"
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
             if (it.isSuccessful){
@@ -57,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 user = FirebaseAuth.getInstance().currentUser!!
                 setup()
                 println("SIIIIIIIIIIIIIIIIII")
-              //writeNewLocation()
+                //writeNewLocation()
             }
             else{
                 val exception = it.exception
@@ -66,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                 println("NOOOOOOOOOOOOOOOOOOOO "+{exception?.message})
             }
         }
-
     }
     fun setup(){
         val db = Firebase.firestore
@@ -97,6 +87,9 @@ class MainActivity : AppCompatActivity() {
             Log.d(ContentValues.TAG, "DocumentSnapshot succesfully written!")
         }.addOnFailureListener { e-> Log.w(ContentValues.TAG,"Error writing document",e) }
     }*/
+    private fun loadData(){
+
+    }
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
             startActivity(Intent(this, AddLocationActivity::class.java))
@@ -136,5 +129,10 @@ class MainActivity : AppCompatActivity() {
             binding.tvNo.visibility = View.VISIBLE
         }
         miAdapter.notifyItemRemoved(position)
+    }
+
+    override fun onResume() {
+        super.onResume()
+       // setRecycler()
     }
 }
