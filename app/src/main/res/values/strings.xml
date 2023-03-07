@@ -11,6 +11,9 @@
     <string name="cancel">Cancelar</string>
     <string name="enter">Acceder</string>
     <string name="introduceContra">Introduzca su contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="lugar">Lugar de la visita</string>
+    <string name="conclusion">Ponga su conclusion del sitio</string>
 
     <array name="opciones">
         <item>Galeria</item>
