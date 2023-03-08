@@ -31,12 +31,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var miAdapter: UsuariosAdapter
     var lista = mutableListOf<Location>()
+    var editor:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        logIn()
+        val usuario = "elfliper2@gmail.com"
+        val contra ="123456"
+        logIn(usuario,contra)
       //  crearNuevoUsuario("pepeeldelaspapas@gmail.com","123456")
 
         setListeners() //Cdo pulsemos el boton flotante
@@ -58,11 +61,34 @@ class MainActivity : AppCompatActivity() {
                 var bindDialog= DialogWindowBinding.bind(dialogView)
 
                 val buttonCancel = bindDialog.cancel
+                val buttonAceptar = bindDialog.login
 
                 buttonCancel.setOnClickListener {
                     println("DDDDDDDDDDDDD")
                     dialogViewAlert.dismiss() }
+                buttonAceptar.setOnClickListener {
 
+
+                    val usuario = "pepeeldelaspapas@gmail.com"
+                    val contra ="123456"
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
+                        if (it.isSuccessful){
+                            user = FirebaseAuth.getInstance().currentUser!!
+                            println("SI")
+                            rights(usuario)
+                            //writeNewLocation()
+                            println("permisos "+editor)
+                        }
+
+                        else{
+                            val exception = it.exception
+                            println("Y no")
+                            Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+                            println(it.exception?.message)
+
+                        }
+                    }
+                }
                 binding.tvNo.visibility = View.VISIBLE
 
                 true
@@ -100,28 +126,64 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener{ e-> Log.w(ContentValues.TAG, "Error writing document", e)}
     }
 
-    private fun logIn(){
-        val usuario = "elfliper2@gmail.com"
-        val contra ="123456"
+    private fun logIn(usuario:String,contra:String):Boolean{
+        var resultado:Boolean = false
+
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
             if (it.isSuccessful){
-                println(contra)
                 user = FirebaseAuth.getInstance().currentUser!!
+                println("SI")
                 setup()
-                println("SIIIIIIIIIIIIIIIIII")
+                resultado=true
                 //writeNewLocation()
+                println("kkkkkkkkkkkkkkk"+resultado)
             }
+
             else{
                 val exception = it.exception
+                println("Y no")
                 Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
-
-                println("NOOOOOOOOOOOOOOOOOOOO "+{exception?.message})
+                println(it.exception?.message)
+                resultado=false
             }
         }
+        println("respre"+resultado)
+        return resultado
+    }
+    fun rights(email: String){
+        val db = Firebase.firestore
+        db.collection("user").document(email).get().addOnSuccessListener {
+                documento ->
+            val rol = documento.getString("rol")
+            if(rol=="Admin"){
+                editor=true;
+            }
+            else{
+                println("No es igual")
+            }
+    }.addOnFailureListener { println("FALLLLLLOOOOOOOOOO") }
+
     }
     fun setup(){
         val db = Firebase.firestore
         db.collection("location").document("lugar").get().addOnSuccessListener {
+                documento ->
+            val nombre = documento.getString("nombre")
+            val imagen=documento.getString("image")
+            var usuario: Location? = Location(nombre!!, "Ciudad de irlanda", "Ocio", "Cultura", "Imprescindibles", imagen!!)
+            if (usuario != null) {
+                println("Aqui"+nombre)
+                lista.add(usuario)
+                setRecycler()
+            }
+            else{
+            }
+        }
+    }
+
+    fun userSetup(email:String){
+        val db = Firebase.firestore
+        db.collection("user").document(email).get().addOnSuccessListener {
                 documento ->
             val nombre = documento.getString("nombre")
             val imagen=documento.getString("image")
