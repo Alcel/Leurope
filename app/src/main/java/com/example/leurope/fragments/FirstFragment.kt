@@ -16,11 +16,14 @@ import androidx.fragment.app.Fragment
 import com.example.leurope.R
 import com.example.leurope.databinding.FirstFragmentBinding
 
-class FirstFragment:Fragment() {
+class FirstFragment(rol:String?):Fragment() {
     //vectores xml=https://pictogrammers.com/library/mdi/
     private lateinit var binding: FirstFragmentBinding
     private var uri:Uri?=null
     private var img:Bitmap?=null
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

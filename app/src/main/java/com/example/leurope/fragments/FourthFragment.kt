@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.leurope.R
 import com.example.leurope.databinding.FourthFragmentBinding
 
-class FourthFragment: Fragment() {
+class FourthFragment(rol:String?): Fragment() {
     private lateinit var binding: FourthFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,

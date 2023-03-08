@@ -43,11 +43,12 @@ class AddLocationActivity : AppCompatActivity() {
     }
     fun inicializar(){
         val adapter = TabsFragmentAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        adapter.addItem(FirstFragment(),resources.getString(R.string.intro))
-        adapter.addItem(SecondFragment(),resources.getString(R.string.desc))
+        var editable = intent.getStringExtra("rol")
+        adapter.addItem(FirstFragment(editable),resources.getString(R.string.intro))
+        adapter.addItem(SecondFragment(editable),resources.getString(R.string.desc))
         adapter.addItem(MainMapa(),resources.getString(R.string.transport))
-        adapter.addItem(FourthFragment(),resources.getString(R.string.ocio))
-        adapter.addItem(FiveFragment(),resources.getString(R.string.cultur))
+        adapter.addItem(FourthFragment(editable),resources.getString(R.string.ocio))
+        adapter.addItem(FiveFragment(editable),resources.getString(R.string.cultur))
 
         val viewPager= binding.viewPager
         viewPager.adapter=adapter

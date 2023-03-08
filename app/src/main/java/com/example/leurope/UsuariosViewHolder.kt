@@ -22,9 +22,7 @@ class UsuariosViewHolder (vista: View):RecyclerView.ViewHolder(vista){
             .load(profesor.Imagen)
             .into(miBinding.imageView)
 
-        miBinding.btnBorrar.setOnClickListener{
-            onItemDelete(adapterPosition)
-        }
+
         itemView.setOnClickListener { onItemUpdate(profesor) }
     }
 }

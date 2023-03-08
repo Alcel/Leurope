@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isInvisible
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        rightChange()
+
         val usuario = "elfliper2@gmail.com"
         val contra ="123456"
         logIn(usuario,contra)
@@ -67,8 +70,6 @@ class MainActivity : AppCompatActivity() {
                     println("DDDDDDDDDDDDD")
                     dialogViewAlert.dismiss() }
                 buttonAceptar.setOnClickListener {
-
-
                     val usuario = "pepeeldelaspapas@gmail.com"
                     val contra ="123456"
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
@@ -78,6 +79,8 @@ class MainActivity : AppCompatActivity() {
                             rights(usuario)
                             //writeNewLocation()
                             println("permisos "+editor)
+                            println("llego")
+                            rightChange()
                         }
 
                         else{
@@ -96,10 +99,13 @@ class MainActivity : AppCompatActivity() {
             R.id.item_borrar_todo->{ //Si tenemos implementado el adapter y la BD lo codificamos
                 lista.clear()
                 binding.tvNo.visibility = View.INVISIBLE
+                editor=false
+                rightChange()
                 true
             }
             else->true
         }
+
     }
 
     fun crearNuevoUsuario(email:String, clave:String){
@@ -164,6 +170,19 @@ class MainActivity : AppCompatActivity() {
     }.addOnFailureListener { println("FALLLLLLOOOOOOOOOO") }
 
     }
+
+    fun rightChange(){
+        if(editor){
+            binding.fabAdd.visibility=View.VISIBLE
+        }else{
+            binding.fabAdd.visibility=View.GONE
+            val layoutManager = LinearLayoutManager(this)
+            binding.recUsuarios.layoutManager = layoutManager
+            miAdapter = UsuariosAdapter(lista, { it }) {
+                    usuario->onItemUpdate(usuario)
+            }
+        }
+    }
     fun setup(){
         val db = Firebase.firestore
         db.collection("location").document("lugar").get().addOnSuccessListener {
@@ -213,7 +232,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
-            startActivity(Intent(this, AddLocationActivity::class.java))
+            startActivity(Intent(this, AddLocationActivity::class.java).putExtra("rol",editor))
         }
     }
 
