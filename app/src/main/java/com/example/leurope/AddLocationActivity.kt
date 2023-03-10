@@ -58,7 +58,6 @@ class AddLocationActivity : AppCompatActivity() {
     private fun cogerDatos() {
         val datos = intent.extras
         if(datos!=null){
-            editar= true
           //  binding.btnCrear.text="EDITAR"
             val lugar = datos.getSerializable("USUARIO") as Location
 

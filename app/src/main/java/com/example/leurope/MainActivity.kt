@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var miAdapter: UsuariosAdapter
     var lista = mutableListOf<Location>()
-    var editor:Boolean=false
+    var editor:Boolean=true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        rightChange()
+
 
         val usuario = "elfliper2@gmail.com"
         val contra ="123456"
@@ -48,64 +48,9 @@ class MainActivity : AppCompatActivity() {
         setListeners() //Cdo pulsemos el boton flotante
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_opciones, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.item_crear->{
-                Toast.makeText(this,"Exito",Toast.LENGTH_SHORT)
-                val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_window,null)
-                val dialogViewBuilder = AlertDialog.Builder(this)
-                    .setView(dialogView).setTitle("Login")
-                val dialogViewAlert =dialogViewBuilder.show()
-                var bindDialog= DialogWindowBinding.bind(dialogView)
 
-                val buttonCancel = bindDialog.cancel
-                val buttonAceptar = bindDialog.login
 
-                buttonCancel.setOnClickListener {
-                    println("DDDDDDDDDDDDD")
-                    dialogViewAlert.dismiss() }
-                buttonAceptar.setOnClickListener {
-                    val usuario = "pepeeldelaspapas@gmail.com"
-                    val contra ="123456"
-                    FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario,contra).addOnCompleteListener {
-                        if (it.isSuccessful){
-                            user = FirebaseAuth.getInstance().currentUser!!
-                            println("SI")
-                            rights(usuario)
-                            //writeNewLocation()
-                            println("permisos "+editor)
-                            println("llego")
-                            rightChange()
-                            rightChange()
-                        }
-
-                        else{
-                            val exception = it.exception
-                            println("Y no")
-                            Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
-                            println(it.exception?.message)
-
-                        }
-                    }
-                }
-
-                true
-            }
-            R.id.item_borrar_todo->{ //Si tenemos implementado el adapter y la BD lo codificamos
-
-                editor=false
-                rightChange()
-                true
-            }
-            else->true
-        }
-
-    }
 
     fun crearNuevoUsuario(email:String, clave:String){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, clave).addOnCompleteListener{
@@ -155,34 +100,8 @@ class MainActivity : AppCompatActivity() {
         println("respre"+resultado)
         return resultado
     }
-    fun rights(email: String){
-        val db = Firebase.firestore
-        db.collection("user").document(email).get().addOnSuccessListener {
-                documento ->
-            val rol = documento.getString("rol")
-            println("ROL:"+rol)
-            if(rol=="Admin"){
-                editor=true;
-            }
-            else{
-                println("No es igual")
-            }
-    }.addOnFailureListener { println("FALLLLLLOOOOOOOOOO") }
 
-    }
 
-    fun rightChange(){
-        if(editor){
-            binding.fabAdd.visibility=View.VISIBLE
-        }else{
-            binding.fabAdd.visibility=View.GONE
-            val layoutManager = LinearLayoutManager(this)
-            binding.recUsuarios.layoutManager = layoutManager
-            miAdapter = UsuariosAdapter(lista, { it }) {
-                    usuario->onItemUpdate(usuario)
-            }
-        }
-    }
     fun setup(){
         val db = Firebase.firestore
         db.collection("location").get().addOnSuccessListener {
