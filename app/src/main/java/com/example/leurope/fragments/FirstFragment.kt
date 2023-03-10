@@ -13,14 +13,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.leurope.MainActivity
 import com.example.leurope.R
 import com.example.leurope.databinding.FirstFragmentBinding
 
-class FirstFragment(rol:String?):Fragment() {
+class FirstFragment():Fragment() {
     //vectores xml=https://pictogrammers.com/library/mdi/
     private lateinit var binding: FirstFragmentBinding
     private var uri:Uri?=null
     private var img:Bitmap?=null
+
+    private var editor:Boolean = MainActivity().editor
 
 
 
@@ -35,8 +38,16 @@ class FirstFragment(rol:String?):Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageButton.setOnClickListener {
-            alerta()
+        println("ROL: "+editor)
+
+
+        println(editor)
+        if(!editor){
+            binding.conclusion.isEnabled=false
+            binding.lugar.isEnabled=false
+        }else{
+            binding.imageButton.setOnClickListener {
+            }
         }
     }
 

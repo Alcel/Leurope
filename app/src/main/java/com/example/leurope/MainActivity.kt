@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                             println("permisos "+editor)
                             println("llego")
                             rightChange()
+                            rightChange()
                         }
 
                         else{
@@ -92,13 +93,11 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                binding.tvNo.visibility = View.VISIBLE
 
                 true
             }
             R.id.item_borrar_todo->{ //Si tenemos implementado el adapter y la BD lo codificamos
-                lista.clear()
-                binding.tvNo.visibility = View.INVISIBLE
+
                 editor=false
                 rightChange()
                 true
@@ -161,6 +160,7 @@ class MainActivity : AppCompatActivity() {
         db.collection("user").document(email).get().addOnSuccessListener {
                 documento ->
             val rol = documento.getString("rol")
+            println("ROL:"+rol)
             if(rol=="Admin"){
                 editor=true;
             }
@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
     private fun setRecycler() {
         binding.tvNo.visibility = View.INVISIBLE
         if (lista.size == 0) {
-            binding.tvNo.visibility = View.VISIBLE
+
             return
         }
         val layoutManager = LinearLayoutManager(this)
@@ -275,4 +275,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
        // setRecycler()
     }
+
+
 }
