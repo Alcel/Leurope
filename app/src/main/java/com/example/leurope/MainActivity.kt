@@ -185,18 +185,19 @@ class MainActivity : AppCompatActivity() {
     }
     fun setup(){
         val db = Firebase.firestore
-        db.collection("location").document("lugar").get().addOnSuccessListener {
-                documento ->
-            val nombre = documento.getString("nombre")
-            val imagen=documento.getString("image")
-            var usuario: Location? = Location(nombre!!, "Ciudad de irlanda", "Ocio", "Cultura", "Imprescindibles", imagen!!)
-            if (usuario != null) {
-                println("Aqui"+nombre)
-                lista.add(usuario)
-                setRecycler()
+        db.collection("location").get().addOnSuccessListener {
+                documentos ->
+            for(documento in documentos){
+                val nombre = documento.getString("nombre")
+                val imagen=documento.getString("image")
+                var usuario: Location? = Location(nombre!!, "Ciudad de irlanda", "Ocio", "Cultura", "Imprescindibles", imagen!!)
+                if (usuario != null) {
+                    println("Aqui" + nombre)
+                    lista.add(usuario)
+                }
             }
-            else{
-            }
+            setRecycler()
+
         }
     }
 
