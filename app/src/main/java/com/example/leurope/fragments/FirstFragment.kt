@@ -13,8 +13,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.leurope.MainActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.leurope.R
+import com.example.leurope.ViewModelFragments
 import com.example.leurope.databinding.FirstFragmentBinding
 
 class FirstFragment():Fragment() {
@@ -22,8 +23,7 @@ class FirstFragment():Fragment() {
     private lateinit var binding: FirstFragmentBinding
     private var uri:Uri?=null
     private var img:Bitmap?=null
-
-    private var editor:Boolean = MainActivity().editor
+    private lateinit var viewModel: ViewModelFragments
 
 
 
@@ -38,17 +38,10 @@ class FirstFragment():Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("ROL: "+editor)
-
-
-        println(editor)
-        if(!editor){
-            binding.conclusion.isEnabled=false
-            binding.lugar.isEnabled=false
-        }else{
-            binding.imageButton.setOnClickListener {
-            }
+        binding.imageButton.setOnClickListener {
+            alerta()
         }
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
     }
 
     private fun alerta(){

@@ -66,6 +66,10 @@ class AddLocationActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun insercion(){
+
+    }
 /*
     private fun setListeners() {
         binding.btnVolver.setOnClickListener {

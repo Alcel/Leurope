@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListeners() {
         binding.fabAdd.setOnClickListener {
-            startActivity(Intent(this, AddLocationActivity::class.java).putExtra("rol",editor))
+            startActivity(Intent(this, AddLocationActivity::class.java))
         }
     }
 
