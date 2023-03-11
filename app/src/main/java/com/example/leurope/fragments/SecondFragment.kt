@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.leurope.R
@@ -25,7 +26,12 @@ class SecondFragment(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
-        viewModel.descripcion=binding.descripcion.text.toString()
-        viewModel.imprescindibles=binding.imprescindibles.text.toString()
+        binding.descripcion.addTextChangedListener {
+            viewModel.descripcion=binding.descripcion.text.toString()
+        }
+
+        binding.imprescindibles.addTextChangedListener {
+            viewModel.imprescindibles=binding.imprescindibles.text.toString()
+        }
     }
 }

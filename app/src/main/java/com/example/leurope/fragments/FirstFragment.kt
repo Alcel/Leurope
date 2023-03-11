@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -42,6 +43,15 @@ class FirstFragment():Fragment() {
             alerta()
         }
         viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
+
+        binding.button2.setOnClickListener{
+            val descripcion=viewModel.descripcion
+            val imprescindibles=viewModel.imprescindibles
+            val comida=viewModel.comida
+            val lugarComida=viewModel.lugarcomida
+            val actividades=viewModel.actividades
+            Toast.makeText(requireContext(), "La descripcion es ${descripcion}, lo imprescindile es ${imprescindibles}, ${comida}, ${lugarComida}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun alerta(){

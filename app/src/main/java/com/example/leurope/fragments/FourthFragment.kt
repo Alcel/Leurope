@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.leurope.R
@@ -25,8 +26,16 @@ class FourthFragment(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
-        viewModel.comida=binding.comida.text.toString()
-        viewModel.lugarcomida=binding.lugarComida.text.toString()
-        viewModel.actividades=binding.actividades.text.toString()
+        binding.comida.addTextChangedListener {
+            viewModel.comida=binding.comida.text.toString()
+        }
+
+        binding.lugarComida.addTextChangedListener {
+            viewModel.lugarcomida=binding.lugarComida.text.toString()
+        }
+
+        binding.actividades.addTextChangedListener {
+            viewModel.actividades=binding.actividades.text.toString()
+        }
     }
 }
