@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.leurope.Location
 import com.example.leurope.R
 import com.example.leurope.ViewModelFragments
 import com.example.leurope.databinding.FiveFragmentBinding
@@ -26,6 +27,14 @@ class FiveFragment(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
+        var intent=activity?.intent?.getSerializableExtra("USUARIO")
+        if (intent!=null){
+            var lugar=intent as Location
+            binding.lugarInteres.setText(lugar.lugarCultura)
+            binding.festividad.setText(lugar.festividad)
+            viewModel.lugarInteres=lugar.lugarCultura
+            viewModel.festividad=lugar.festividad
+        }
         binding.lugarInteres.addTextChangedListener {
             viewModel.lugarInteres=binding.lugarInteres.text.toString()
         }

@@ -17,6 +17,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.example.leurope.Location
 import com.example.leurope.R
 import com.example.leurope.ViewModelFragments
 import com.example.leurope.databinding.FirstFragmentBinding
@@ -32,8 +34,7 @@ class FirstFragment():Fragment() {
     private var uri:Uri?=null
     private var img:Bitmap?=null
     private lateinit var viewModel: ViewModelFragments
-
-
+    var editar=false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +47,18 @@ class FirstFragment():Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var intent=activity?.intent?.getSerializableExtra("USUARIO")
+        if(intent!=null){
+            binding.button2.text="Editar"
+            editar=true
+            var lugar=intent as Location
+            binding.nombre.setText(lugar.Nombre)
+            binding.lugar.setText(lugar.lugar)
+            binding.conclusion.setText(lugar.conclusion)
+            Glide.with(requireContext())
+                .load(lugar.Imagen)
+                .into(binding.imageButton)
+        }
         binding.imageButton.setOnClickListener {
             alerta()
         }
