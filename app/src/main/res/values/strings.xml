@@ -23,6 +23,10 @@
     <string name="actividades">Actividades de la zona</string>
     <string name="tvactividades">Ponga las actividades que le haya gustado hacer</string>
     <string name="lugarcomer">Lugar donde comer</string>
+    <string name="lugarInteres">Lugares de interes sociocultural</string>
+    <string name="lugarInt">Lugares</string>
+    <string name="tvfestividades">Ponga las festividades locales del lugar</string>
+    <string name="festividadLocal">Festividad local</string>
 
     <array name="opciones">
         <item>Galeria</item>

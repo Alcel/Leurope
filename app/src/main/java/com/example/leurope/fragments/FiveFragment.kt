@@ -4,15 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.leurope.R
+import com.example.leurope.ViewModelFragments
+import com.example.leurope.databinding.FiveFragmentBinding
 
 class FiveFragment(): Fragment() {
+    private lateinit var binding:FiveFragmentBinding
+    private lateinit var viewModel: ViewModelFragments
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.five_fragment, container, false)
+        binding= FiveFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
+        binding.lugarInteres.addTextChangedListener {
+            viewModel.lugarInteres=binding.lugarInteres.text.toString()
+        }
+
+        binding.festividad.addTextChangedListener {
+            viewModel.festividad=binding.festividad.text.toString()
+        }
     }
 }

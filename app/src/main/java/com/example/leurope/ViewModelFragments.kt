@@ -8,4 +8,6 @@ class ViewModelFragments: ViewModel() {
     var comida:String?=null
     var lugarcomida:String?=null
     var actividades:String?=null
+    var lugarInteres:String?=null
+    var festividad:String?=null
 }
