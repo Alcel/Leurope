@@ -53,6 +53,7 @@ class FirstFragment():Fragment() {
         if(intent!=null){
             binding.nombre.isEnabled=false
             binding.button2.text="Editar"
+            binding.btnBorrar.visibility=View.VISIBLE
             editar =true
             var lugar=intent as Location
             binding.nombre.setText(lugar.Nombre)
@@ -67,6 +68,19 @@ class FirstFragment():Fragment() {
             alerta()
         }
         viewModel = ViewModelProvider(requireActivity()).get(ViewModelFragments::class.java)
+
+        binding.btnBorrar.setOnClickListener {
+            val db=Firebase.firestore
+            val nombre=binding.nombre.text.toString()
+            db.collection("location").document(nombre).delete()
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "El documento ha sido borrado exitosamente", Toast.LENGTH_SHORT).show()
+                    requireActivity().finish()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "El documento no se pudo borrar", Toast.LENGTH_SHORT).show()
+                }
+        }
 
         binding.button2.setOnClickListener{
             val db=Firebase.firestore
