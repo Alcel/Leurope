@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         val contra ="123456"
         setup()
         logIn(usuario,contra)
+        binding.fabAactualizar.setOnClickListener {
+            setup()
+        }
       //  crearNuevoUsuario("pepeeldelaspapas@gmail.com","123456")
 
         setListeners() //Cdo pulsemos el boton flotante
@@ -105,6 +108,9 @@ class MainActivity : AppCompatActivity() {
 
 
     fun setup(){
+        if (lista.size>0){
+            lista.clear()
+        }
         val db = Firebase.firestore
         db.collection("location").get().addOnSuccessListener {
                 documentos ->
