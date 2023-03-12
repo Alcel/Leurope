@@ -30,4 +30,10 @@
     <string name="tvactividades">"Fun activities "</string>
     <string name="lugarcomer">Place to eat</string>
     <string name="tvfestividades">Local festivities</string>
+    <string name="delete">Delete</string>
+    <string name="insertar">Insert</string>
+    <string name="lugarInteres">Interesting places</string>
+    <string name="lugarInt">Places</string>
+    <string name="festividadLocal">Local festivities</string>
+    <string name="platos">Local dishes</string>
 </resources>

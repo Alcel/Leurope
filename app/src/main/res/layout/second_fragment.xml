@@ -9,13 +9,11 @@
         android:id="@+id/ScrollView01"
         android:layout_width="310dp"
         android:layout_height="201dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648">
+        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/descripcion"

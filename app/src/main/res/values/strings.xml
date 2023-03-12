@@ -28,6 +28,8 @@
     <string name="tvfestividades">Festividades locales</string>
     <string name="festividadLocal">Festividad local</string>
     <string name="platos">Platos de la zona</string>
+    <string name="delete">Borrar</string>
+    <string name="insertar">Insertar</string>
 
     <array name="opciones">
         <item>Galeria</item>

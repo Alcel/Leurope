@@ -13,6 +13,16 @@
     <string name="lugarComida">Où manger</string>
     <string name="actividades">Activités</string>
     <string name="tvactividades">Activités amusantes</string>
-    <string name="tvfestividades">fêtes locales</string>
     <string name="tvfestividades">Fêtes locales</string>
+    <string name="lugarcomer">Manger avec moi</string>
+    <string name="lugarInteres">Placé d\'interest</string>
+    <string name="delete">Supprimer</string>
+    <string name="insertar">Inserte</string>
+    <string name="lugarInt">Lieux</string>
+    <string name="imprescindibles">Essential</string>
+    <string name="tvimprescindibles">Ecrire les lieux incontournables du quartier</string>
+    <string name="tvdescripcion">Rédigez une description du lieu</string>
+    <string name="conclusion">Ecrire la conclusion du lieu</string>
+    <string name="festividadLocal">Fêtes locales</string>
+    <string name="platos">Plats locaux</string>
 </resources>
