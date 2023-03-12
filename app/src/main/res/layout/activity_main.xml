@@ -33,7 +33,7 @@
         android:id="@+id/tvNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sin Usuarios"
+        android:text="Sin Lugares"
         android:textColor="#F44336"
         android:textSize="26sp"
         android:textStyle="bold"

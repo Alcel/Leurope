@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -42,10 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         val usuario = "elfliper2@gmail.com"
         val contra ="123456"
+        setup()
         logIn(usuario,contra)
       //  crearNuevoUsuario("pepeeldelaspapas@gmail.com","123456")
 
         setListeners() //Cdo pulsemos el boton flotante
+
     }
 
 
@@ -83,7 +86,6 @@ class MainActivity : AppCompatActivity() {
             if (it.isSuccessful){
                 user = FirebaseAuth.getInstance().currentUser!!
                 println("SI")
-                setup()
                 resultado=true
                 //writeNewLocation()
                 println("kkkkkkkkkkkkkkk"+resultado)
