@@ -33,9 +33,9 @@ class FourthFragment(): Fragment() {
             binding.comida.setText(lugar.comida)
             binding.lugarComida.setText(lugar.lugarComida)
             binding.actividades.setText(lugar.actividades)
-            viewModel.comida=lugar.comida
-            viewModel.lugarcomida=lugar.lugarComida
-            viewModel.actividades=lugar.actividades
+            viewModel.comida=binding.comida.text.toString()
+            viewModel.lugarcomida=binding.lugarComida.text.toString()
+            viewModel.actividades=binding.actividades.text.toString()
         }
 
         binding.comida.addTextChangedListener {

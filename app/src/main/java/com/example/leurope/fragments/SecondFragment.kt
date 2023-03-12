@@ -32,8 +32,8 @@ class SecondFragment(): Fragment() {
             var lugar=intent as Location
             binding.descripcion.setText(lugar.Descripcion)
             binding.imprescindibles.setText(lugar.Imprescindibles)
-            viewModel.descripcion=lugar.Descripcion
-            viewModel.imprescindibles=lugar.Imprescindibles
+            viewModel.descripcion=binding.descripcion.text.toString()
+            viewModel.imprescindibles=binding.imprescindibles.text.toString()
         }
 
         binding.descripcion.addTextChangedListener {

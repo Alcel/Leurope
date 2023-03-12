@@ -109,7 +109,16 @@ class MainActivity : AppCompatActivity() {
             for(documento in documentos){
                 val nombre = documento.getString("nombre")
                 val imagen=documento.getString("image")
-                var usuario: Location? = Location(nombre!!, "Ciudad de irlanda", "wea", "pasas", "ehe", "weawea", "mamamia", "Ocio", "Cultura", "Imprescindibles", imagen!!)
+                val lugar=documento.getString("lugar")
+                val conclusion=documento.getString("conclusion")
+                val descripcion=documento.getString("descripcion")
+                val imprescindibles=documento.getString("imprescindibles")
+                val comida=documento.getString("comida")
+                val lugarComida=documento.getString("lugarComida")
+                val actividades=documento.getString("actividades")
+                val lugares=documento.getString("lugares")
+                val festividades=documento.getString("festividades")
+                var usuario: Location? = Location(nombre!!, descripcion!!, lugar!!, conclusion!!, comida!!, lugarComida!!, actividades!!, lugares!!, festividades!!, imprescindibles!!, imagen!!)
                 if (usuario != null) {
                     println("Aqui" + nombre)
                     lista.add(usuario)

@@ -32,8 +32,8 @@ class FiveFragment(): Fragment() {
             var lugar=intent as Location
             binding.lugarInteres.setText(lugar.lugarCultura)
             binding.festividad.setText(lugar.festividad)
-            viewModel.lugarInteres=lugar.lugarCultura
-            viewModel.festividad=lugar.festividad
+            viewModel.lugarInteres=binding.lugarInteres.text.toString()
+            viewModel.festividad=binding.festividad.text.toString()
         }
         binding.lugarInteres.addTextChangedListener {
             viewModel.lugarInteres=binding.lugarInteres.text.toString()

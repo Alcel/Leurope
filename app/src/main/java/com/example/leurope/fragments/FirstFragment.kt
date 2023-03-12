@@ -35,6 +35,8 @@ class FirstFragment():Fragment() {
     private var img:Bitmap?=null
     private lateinit var viewModel: ViewModelFragments
     var editar=false
+    var imgUrl=""
+    var edicionImagen=false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +51,9 @@ class FirstFragment():Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var intent=activity?.intent?.getSerializableExtra("USUARIO")
         if(intent!=null){
+            binding.nombre.isEnabled=false
             binding.button2.text="Editar"
-            editar=true
+            editar =true
             var lugar=intent as Location
             binding.nombre.setText(lugar.Nombre)
             binding.lugar.setText(lugar.lugar)
@@ -58,6 +61,7 @@ class FirstFragment():Fragment() {
             Glide.with(requireContext())
                 .load(lugar.Imagen)
                 .into(binding.imageButton)
+            imgUrl=lugar.Imagen
         }
         binding.imageButton.setOnClickListener {
             alerta()
@@ -77,79 +81,243 @@ class FirstFragment():Fragment() {
             var lugares=viewModel.lugarInteres
             var festividades=viewModel.festividad
             val idImagen= UUID.randomUUID()
-            if (img!=null){
-                var baos= ByteArrayOutputStream()
-                img!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val byteArray=baos.toByteArray()
+            val imageRef =
+                FirebaseStorage.getInstance().reference.child("images").child("${idImagen}")
+            if(nombre!=null && lugar!=null && conclusion!=null && descripcion!=null && imprescindibles!=null && comida!=null && lugarComida!=null && actividades!=null && lugares !=null && festividades !=null){
+                if(!editar) {
+                    if (img != null) {
+                        var baos = ByteArrayOutputStream()
+                        img!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                        val byteArray = baos.toByteArray()
 
-                val imageRef=FirebaseStorage.getInstance().reference.child("images").child("${idImagen}")
-                imageRef.putBytes(byteArray)
-                    .addOnSuccessListener {
-                        Log.d(ContentValues.TAG, "Image uploaded successfully")
-                        imageRef.downloadUrl.addOnSuccessListener { uri->
-                            val imageUrl=uri.toString()
-                            val data= hashMapOf(
-                                "nombre" to nombre,
-                                "lugar" to lugar,
-                                "conclusion" to conclusion,
-                                "descripcion" to descripcion,
-                                "imprescindibles" to imprescindibles,
-                                "comida" to comida,
-                                "lugarComida" to lugarComida,
-                                "actividades" to actividades,
-                                "lugares" to lugares,
-                                "festividades" to festividades,
-                                "image" to imageUrl
-                            )
-                            db.collection("location").document(nombre).set(data)
-                                .addOnSuccessListener {
-                                    Log.d(ContentValues.TAG, "Lugar almacenado en firesotore")
-                                    Toast.makeText(requireContext(), "Lugar almacenado en firesotore", Toast.LENGTH_SHORT).show()
-                                    requireActivity().finish()
+                        imageRef.putBytes(byteArray)
+                            .addOnSuccessListener {
+                                Log.d(ContentValues.TAG, "Image uploaded successfully")
+                                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                                    val imageUrl = uri.toString()
+                                    val data = hashMapOf(
+                                        "nombre" to nombre,
+                                        "lugar" to lugar,
+                                        "conclusion" to conclusion,
+                                        "descripcion" to descripcion,
+                                        "imprescindibles" to imprescindibles,
+                                        "comida" to comida,
+                                        "lugarComida" to lugarComida,
+                                        "actividades" to actividades,
+                                        "lugares" to lugares,
+                                        "festividades" to festividades,
+                                        "image" to imageUrl
+                                    )
+                                    db.collection("location").document(nombre).set(data)
+                                        .addOnSuccessListener {
+                                            Log.d(ContentValues.TAG, "Lugar almacenado en firesotore")
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Lugar almacenado en firesotore",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            requireActivity().finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(
+                                                ContentValues.TAG,
+                                                "Error guardando el lugar en firestore",
+                                                e
+                                            )
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Error guardando el lugar en firestore",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                 }
-                                .addOnFailureListener {e->
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
+                            }
+
+                    } else if (uri != null) {
+                        imageRef.putFile(uri!!)
+                            .addOnSuccessListener {
+                                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                                    val imageUrl = uri.toString()
+                                    val data = hashMapOf(
+                                        "nombre" to nombre,
+                                        "lugar" to lugar,
+                                        "conclusion" to conclusion,
+                                        "descripcion" to descripcion,
+                                        "imprescindibles" to imprescindibles,
+                                        "comida" to comida,
+                                        "lugarComida" to lugarComida,
+                                        "actividades" to actividades,
+                                        "lugares" to lugares,
+                                        "festividades" to festividades,
+                                        "image" to imageUrl
+                                    )
+                                    db.collection("location").document(nombre).set(data)
+                                        .addOnSuccessListener {
+                                            Log.d(ContentValues.TAG, "Lugar almacenado en firesotore")
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Lugar almacenado en firesotore",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            requireActivity().finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(
+                                                ContentValues.TAG,
+                                                "Error guardando el lugar en firestore",
+                                                e
+                                            )
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Error guardando el lugar en firestore",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
+                            }
+                    }
+                }else{
+                    if (!edicionImagen){
+                        val data= hashMapOf(
+                            "nombre" to nombre,
+                            "lugar" to lugar,
+                            "conclusion" to conclusion,
+                            "descripcion" to descripcion,
+                            "imprescindibles" to imprescindibles,
+                            "comida" to comida,
+                            "lugarComida" to lugarComida,
+                            "actividades" to actividades,
+                            "lugares" to lugares,
+                            "festividades" to festividades,
+                            "image" to imgUrl
+                        )
+                        db.collection("location").document(nombre).update(data as Map<String, String>)
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), "El lugar ha sido actualizado con exito", Toast.LENGTH_SHORT).show()
+                                requireActivity().finish()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(requireContext(), "Hubo un problema al actualizar los datos", Toast.LENGTH_SHORT).show()
+                            }
+                    }else {
+                        val imageRef =
+                            FirebaseStorage.getInstance().reference.child("images").child("${idImagen}")
+                        if (img != null) {
+                            var baos = ByteArrayOutputStream()
+                            img!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                            val byteArray = baos.toByteArray()
+
+                            imageRef.putBytes(byteArray)
+                                .addOnSuccessListener {
+                                    Log.d(ContentValues.TAG, "Image uploaded successfully")
+                                    imageRef.downloadUrl.addOnSuccessListener { uri ->
+                                        val imageUrl = uri.toString()
+                                        val data = hashMapOf(
+                                            "nombre" to nombre,
+                                            "lugar" to lugar,
+                                            "conclusion" to conclusion,
+                                            "descripcion" to descripcion,
+                                            "imprescindibles" to imprescindibles,
+                                            "comida" to comida,
+                                            "lugarComida" to lugarComida,
+                                            "actividades" to actividades,
+                                            "lugares" to lugares,
+                                            "festividades" to festividades,
+                                            "image" to imageUrl
+                                        )
+                                        db.collection("location").document(nombre)
+                                            .update(data as Map<String, String>)
+                                            .addOnSuccessListener {
+                                                Log.d(
+                                                    ContentValues.TAG,
+                                                    "Lugar actualizado en firesotore"
+                                                )
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Lugar actuzalizado con exito",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                requireActivity().finish()
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e(
+                                                    ContentValues.TAG,
+                                                    "Error guardando el lugar en firestore",
+                                                    e
+                                                )
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Error actualizando el lugar",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                    }
+                                }
+                                .addOnFailureListener { e ->
                                     Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
-                                    Toast.makeText(requireContext(), "Error guardando el lugar en firestore", Toast.LENGTH_SHORT).show()
+                                }
+
+                        } else if (uri != null) {
+                            imageRef.putFile(uri!!)
+                                .addOnSuccessListener {
+                                    imageRef.downloadUrl.addOnSuccessListener { uri ->
+                                        val imageUrl = uri.toString()
+                                        val data = hashMapOf(
+                                            "nombre" to nombre,
+                                            "lugar" to lugar,
+                                            "conclusion" to conclusion,
+                                            "descripcion" to descripcion,
+                                            "imprescindibles" to imprescindibles,
+                                            "comida" to comida,
+                                            "lugarComida" to lugarComida,
+                                            "actividades" to actividades,
+                                            "lugares" to lugares,
+                                            "festividades" to festividades,
+                                            "image" to imageUrl
+                                        )
+                                        db.collection("location").document(nombre)
+                                            .update(data as Map<String, String>)
+                                            .addOnSuccessListener {
+                                                Log.d(
+                                                    ContentValues.TAG,
+                                                    "Lugar almacenado en firesotore"
+                                                )
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Lugar actualizado con exito",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                requireActivity().finish()
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e(
+                                                    ContentValues.TAG,
+                                                    "Error guardando el lugar en firestore",
+                                                    e
+                                                )
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Error actualizando el lugar",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
                                 }
                         }
                     }
-                    .addOnFailureListener{e->
-                        Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
-                    }
+                }
 
-            }else if (uri!=null){
-                val imageRef=FirebaseStorage.getInstance().reference.child("images").child("${idImagen}")
-                imageRef.putFile(uri!!)
-                    .addOnSuccessListener {
-                        imageRef.downloadUrl.addOnSuccessListener { uri->
-                            val imageUrl=uri.toString()
-                            val data= hashMapOf(
-                                "nombre" to nombre,
-                                "lugar" to lugar,
-                                "conclusion" to conclusion,
-                                "descripcion" to descripcion,
-                                "imprescindibles" to imprescindibles,
-                                "comida" to comida,
-                                "lugarComida" to lugarComida,
-                                "actividades" to actividades,
-                                "lugares" to lugares,
-                                "festividades" to festividades,
-                                "image" to imageUrl
-                            )
-                            db.collection("location").document(nombre).set(data)
-                                .addOnSuccessListener {
-                                    Log.d(ContentValues.TAG, "Lugar almacenado en firesotore")
-                                    Toast.makeText(requireContext(), "Lugar almacenado en firesotore", Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnFailureListener {e->
-                                    Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
-                                    Toast.makeText(requireContext(), "Error guardando el lugar en firestore", Toast.LENGTH_SHORT).show()
-                                }
-                        }
-                    }
-                    .addOnFailureListener{e->
-                        Log.e(ContentValues.TAG, "Error guardando el lugar en firestore", e)
-                    }
+            }else{
+                Toast.makeText(requireContext(), "Uno de los esta vacio y no puede guardarse la localizacion", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -188,10 +356,12 @@ class FirstFragment():Fragment() {
             var extras= data.extras
             img= extras?.get("data") as Bitmap
             binding.imageButton.setImageBitmap(img)
+            edicionImagen=true
         }else if (requestCode==2 && resultCode== RESULT_OK && data!=null){
             img=null
             uri=data.data
             binding.imageButton.setImageURI(uri)
+            edicionImagen=true
         }
     }
 }
