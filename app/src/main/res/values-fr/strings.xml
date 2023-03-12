@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Leurope</string>
+    <string name="intro">Présentation</string>
+    <string name="desc">Description</string>
+    <string name="transport">Transport</string>
+    <string name="ocio">Loisirs</string>
+    <string name="cultur">Culture</string>
+    <string name="nombre">Ville visitée</string>
+    <string name="lugar">Nom</string>
+    <string name="descripcion">Description</string>
+    <string name="Comer">Ce qu\'il faut manger</string>
+    <string name="lugarComida">Où manger</string>
+    <string name="actividades">Activités</string>
+    <string name="tvactividades">Activités amusantes</string>
+    <string name="tvfestividades">fêtes locales</string>
+    <string name="tvfestividades">Fêtes locales</string>
+</resources>
